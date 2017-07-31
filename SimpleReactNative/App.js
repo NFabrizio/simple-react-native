@@ -1,12 +1,17 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import { StyleSheet, Text, View } from 'react-native';
 import ReactCourses from './src/components/ReactCourses';
 import NativeCourses from './src/components/NativeCourses';
 
-const Courses = StackNavigator({
+const Courses = TabNavigator({
   ReactCourses: {screen: ReactCourses},
   NativeCourses: {screen: NativeCourses}
+}, {
+  tabBarOptions: {
+    activeTintColor: '#e91e63',
+    swipeEnabled: true
+  }
 });
 
 export default class App extends React.Component {

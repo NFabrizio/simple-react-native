@@ -7,6 +7,7 @@ import {
   ListView,
   Image
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import data from '../data/courses.json';
 
 const ds = new ListView.DataSource({
@@ -16,7 +17,14 @@ const dataSource = ds.cloneWithRows(data);
 
 export default class ReactCourses extends React.Component {
   static navigationOptions = {
-    title: 'React Courses'
+    tabBarLabel: 'React Courses',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon
+        name={'home'}
+        size={26}
+        style={{ color: tintColor }}
+        />
+    )
   };
 
   render () {
@@ -24,11 +32,7 @@ export default class ReactCourses extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Button
-          onPress={() => navigate('NativeCourses')}
-          title='React Native Courses'
-          style={styles.button}
-        />
+        <Text style={styles.header}>React Courses</Text>
         <ListView
           dataSource={dataSource}
           renderRow={(rowData) => {
@@ -59,7 +63,9 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 10
   },
   course: {
     paddingTop: 10,
@@ -77,5 +83,9 @@ const styles = StyleSheet.create({
     width: 400,
     height: 200,
     marginTop: 5
+  },
+  icon: {
+    width: 26,
+    height: 26
   }
 });
