@@ -4,12 +4,16 @@ import {
   Text,
   View,
   Button,
+  Linking,
   ListView,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
+import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import data from '../data/courses.json';
 
+const theme = getTheme();
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -27,6 +31,17 @@ export default class NativeCourses extends React.Component {
     )
   };
 
+  handleClick = (link) => {
+    Linking.canOpenURL(link)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(link);
+        } else {
+          console.log(`Don't know how to open URL ${link}`);
+        }
+      })
+  }
+
   render () {
     const { navigate } = this.props.navigation;
 
@@ -37,15 +52,18 @@ export default class NativeCourses extends React.Component {
           dataSource={dataSource}
           renderRow={(rowData) => {
             return (
-              <View style={styles.course}>
-                <Text style={styles.courseTitle}>{rowData.title}</Text>
-                <Text>{rowData.description}</Text>
-                <Text>{rowData.views}</Text>
-                <Text>{rowData.link}</Text>
+              <View style={theme.cardStyle}>
                 <Image
                   source={{uri: rowData.image}}
-                  style={styles.image}
+                  style={theme.cardImageStyle}
                   />
+                <Text style={theme.cardTitleStyle}>{rowData.title}</Text>
+                <Text style={theme.cardContentStyle}>{rowData.description}</Text>
+                <Text style={theme.cardActionStyle}
+                  onPress={() => {
+                    this.handleClick(rowData.link)
+                  }}
+                >Tap to course</Text>
               </View>
             );
           }}
