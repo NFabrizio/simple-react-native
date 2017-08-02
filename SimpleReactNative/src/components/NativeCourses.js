@@ -54,7 +54,7 @@ export default class NativeCourses extends React.Component {
               <View style={styles.card}>
                 <Image
                   source={{uri: rowData.image}}
-                  style={styles.cardImageStyle}
+                  style={styles.cardImage}
                   />
                 <Text style={styles.title}>{rowData.title}</Text>
                 <Text style={styles.cardContent}>{rowData.description}</Text>
