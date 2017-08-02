@@ -8,11 +8,9 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import data from '../data/courses.json';
 
-const theme = getTheme();
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -53,14 +51,14 @@ export default class NativeCourses extends React.Component {
           dataSource={dataSource}
           renderRow={(rowData) => {
             return (
-              <View style={[theme.cardStyle, styles.card]}>
+              <View style={styles.card}>
                 <Image
                   source={{uri: rowData.image}}
-                  style={theme.cardImageStyle}
+                  style={styles.cardImageStyle}
                   />
-                <Text style={[theme.cardTitleStyle, styles.title]}>{rowData.title}</Text>
-                <Text style={theme.cardContentStyle}>{rowData.description}</Text>
-                <Text style={[theme.cardActionStyle, styles.action]}
+                <Text style={styles.title}>{rowData.title}</Text>
+                <Text style={styles.cardContent}>{rowData.description}</Text>
+                <Text style={styles.action}
                   onPress={() => {
                     this.handleClick(rowData.link)
                   }}
@@ -89,11 +87,27 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   card: {
-    marginTop: 10
+    marginTop: 10,
+    flex: 1,
+    backgroundColor: '#ffffff',
+    borderRadius: 2,
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 2,
+    }
   },
   icon: {
     width: 26,
     height: 26
+  },
+  cardImage: {
+    height: 170,
+    resizeMode: 'cover'
   },
   list: {
     paddingLeft: 5,
@@ -104,11 +118,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: 318,
+    top: 120,
     left: 0,
     fontSize: 15,
-    backgroundColor: 'rgba(245, 252, 255, 0.60)'
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(245, 252, 255, 0.60)',
+    position: 'absolute',
+    padding: 16,
+    color: '#000000'
+  },
+  cardContent:{
+    padding:0,
+    color: 'rgba(0, 0, 0, 0.54)'
   },
   action: {
+    borderTopWidth: 1,
+    padding: 15,
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#f5fcff'
